@@ -10,7 +10,7 @@ class Note(Base):
 
     id = Column(Integer, primary_key=True)
     content = Column(String)
-    date = Column(Date, default=func.now, index=True)
+    note_date = Column(Date, default=func.now, index=True)
     user_id = Column(Integer, ForeignKey("users.id"))
     mood_id = Column(Integer, ForeignKey("mood_contents.id"))
 

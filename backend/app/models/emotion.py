@@ -10,5 +10,5 @@ class Emotion(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String)
 
-    mood_emotions = relationship("Mood_emotion", back_populates="emotion", lazy="dynamic")
+    mood_emotions = relationship("MoodEmotion", back_populates="emotion", lazy="dynamic")
 

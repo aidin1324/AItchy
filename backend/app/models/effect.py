@@ -10,5 +10,5 @@ class Effect(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String)
 
-    mood_contexts = relationship("Mood_context", back_populates="effect", lazy="dynamic")
+    mood_contexts = relationship("MoodContext", back_populates="effect", lazy="dynamic")
 

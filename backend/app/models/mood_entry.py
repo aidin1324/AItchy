@@ -13,7 +13,7 @@ class MoodEntry(Base):
     energy_level = Column(Integer)
     stress_level = Column(Integer)
     sleep_quality = Column(Integer)
-    date = Column(Date, default=func.now, index=True)
+    entry_date = Column(Date, default=func.now, index=True)
     user_id = Column(Integer, ForeignKey("users.id"))
 
     owner = relationship("User", back_populates="mood_entries")

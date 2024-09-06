@@ -1,3 +1,7 @@
+"""
+That is package for db models (tables)
+"""
+
 from .context_factor import ContextFactor
 from .effect import Effect
 from .user import User
