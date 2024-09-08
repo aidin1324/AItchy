@@ -21,6 +21,12 @@ from services.emotion import EmotionService
 from repository.effect import EffectRepository
 from services.effect import EffectService
 
+from repository.mood_context import MoodContextRepository
+from services.mood_context import MoodContextService
+
+from repository.mood_emotion import MoodEmotionRepository
+from services.mood_emotion import MoodEmotionService
+
 from db.database import get_db
 
 
@@ -58,6 +64,18 @@ def get_effect_repository(
         conn: AsyncSession = Depends(get_db)
 ):
     return EffectRepository(conn)
+
+
+def get_mood_context_repository(
+        conn: AsyncSession = Depends(get_db)
+):
+    return MoodContextRepository(conn)
+
+
+def get_mood_emotion_repository(
+        conn: AsyncSession = Depends(get_db)
+):
+    return MoodEmotionRepository(conn)
 
 
 """
@@ -105,3 +123,15 @@ def get_effect_service(
         effect_repository: EffectRepository = Depends(get_effect_repository)
 ):
     return EffectService(effect_repository)
+
+
+def get_mood_context_service(
+        mood_context_repository: MoodContextRepository = Depends(get_mood_context_repository)
+):
+    return MoodContextService(mood_context_repository)
+
+
+def get_mood_emotion_service(
+        mood_emotion_repository: MoodEmotionRepository = Depends(get_mood_emotion_repository)
+):
+    return MoodEmotionService(mood_emotion_repository)

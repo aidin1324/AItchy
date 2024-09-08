@@ -6,6 +6,8 @@ from api.routes import mood_content
 from api.routes import context_factor
 from api.routes import emotion
 from api.routes import effect
+from api.routes import mood_context
+from api.routes import mood_emotion
 
 api_router = APIRouter()
 
@@ -43,4 +45,16 @@ api_router.include_router(
     effect.router,
     tags=['Effect'],
     prefix="/effect"
+)
+
+api_router.include_router(
+    mood_context.router,
+    tags=['Mood Context'],
+    prefix="/mood-context"
+)
+
+api_router.include_router(
+    mood_emotion.router,
+    tags=['Mood Emotion'],
+    prefix="/mood-emotion"
 )

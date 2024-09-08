@@ -1,6 +1,3 @@
-
-
-
 from fastapi import HTTPException
 from models.mood_content import MoodContent
 from repository.mood_content import MoodContentRepository
