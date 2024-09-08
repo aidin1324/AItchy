@@ -1,10 +1,11 @@
 from datetime import date
 from typing import Annotated, Optional
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy import Date
 
 from api.dependencies import get_auth_service, get_notes_service
+from schemas.pagination import PaginatedResponse
 from services.authentication import AuthenticationService
 from schemas.notes import NoteResponse, NoteCreate, NoteUpdate
 from services.notes import NotesService
@@ -21,16 +22,19 @@ CommonNotesService = Annotated[NotesService, Depends(get_notes_service)]
 
 
 
-
 @router.get(
     "/all",
-    response_model=list[NoteResponse],
+    response_model=PaginatedResponse[NoteResponse],
     summary="Get all notes",
-    description="Retrieve information about all existing notes",
+    description="Retrieve information about all existing notes with pagination",
 )
-async def get_all_notes(notes_service: CommonNotesService):
-    notes = await notes_service.get_notes()
-    return notes
+async def get_all_notes(
+    notes_service: CommonNotesService,
+    last_id: Optional[int] = Query(None, description="Cursor for pagination"),
+    limit: int = Query(10, description="Number of notes to retrieve per page")
+):
+    paginated_notes = await notes_service.get_notes(last_id=last_id, limit=limit)
+    return paginated_notes
 
 
 @router.get(
@@ -39,36 +43,45 @@ async def get_all_notes(notes_service: CommonNotesService):
     summary="Get note by id",
     description="Retrieve information about a specific note",
 )
-async def get_note_by_id(note_id: int, notes_service: CommonNotesService):
+async def get_note_by_id(
+    note_id: int,
+    notes_service: CommonNotesService
+):
     note = await notes_service.get_note_by_id(note_id)
     return note
 
 
 @router.get(
     "/by-date",
-    response_model=list[NoteResponse],
+    response_model=PaginatedResponse[NoteResponse],
     summary="Get notes by date",
-    description="Retrieve information about notes by date",
+    description="Retrieve information about notes by date with pagination",
 )
 async def get_notes_by_date(
     notes_service: CommonNotesService,
     start_date: Optional[date] = None,
     end_date: Optional[date] = None,
+    last_id: Optional[int] = Query(None, description="Cursor for pagination"),
+    limit: int = Query(10, description="Number of notes to retrieve per page")
 ):
-    notes = await notes_service.get_notes_by_date(start_date, end_date)
-    return notes
+    paginated_notes = await notes_service.get_notes_by_date(start_date, end_date, last_id=last_id, limit=limit)
+    return paginated_notes
 
 
 @router.get(
     "/by-emotion",
-    response_model=list[NoteResponse],
+    response_model=PaginatedResponse[NoteResponse],
     summary="Get notes by emotion",
-    description="Retrieve information about notes by emotion",
+    description="Retrieve information about notes by emotion with pagination",
 )
-async def get_notes_by_mood(mood: str, notes_service: CommonNotesService):
-    notes = await notes_service.get_notes_by_mood(mood)
-    return notes
-
+async def get_notes_by_mood(
+    mood: str,
+    notes_service: CommonNotesService,
+    last_id: Optional[int] = Query(None, description="Cursor for pagination"),
+    limit: int = Query(10, description="Number of notes to retrieve per page")
+):
+    paginated_notes = await notes_service.get_notes_by_mood(mood, last_id=last_id, limit=limit)
+    return paginated_notes
 
 @router.post(
     "/create",
