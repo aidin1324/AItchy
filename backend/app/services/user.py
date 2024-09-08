@@ -31,7 +31,7 @@ class UserService:
         user = await self.user_repo.create_user(user_create, hashed_password)
         return user
 
-    async def update_user(self, user_id, user_update: UserUpdate) -> User:
+    async def update_user(self, user_id: int, user_update: UserUpdate) -> User:
         user = await self.user_repo.get_user_by_id(user_id)
         if user is None:
             raise HTTPException(status_code=404, detail="User not found")

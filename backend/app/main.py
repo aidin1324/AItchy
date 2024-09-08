@@ -2,14 +2,25 @@
 Main file to create app
 """
 
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from models.database import create_all, async_engine
+from db.database import create_all, async_engine
 
 from api.routes.main import api_router
 import asyncio
 
-app = FastAPI()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # on startup
+    await create_all()
+    try:
+        yield
+    finally:
+        #on shutdown
+        await async_engine.dispose()
+
+app = FastAPI(lifespan=lifespan)
 
 origins = [
     "*",
@@ -26,11 +37,3 @@ app.add_middleware(
 app.include_router(api_router)
 
 
-@app.on_event("startup")
-async def startup():
-    await create_all()
-
-
-@app.on_event("shutdown")
-async def shutdown():
-    await async_engine.dispose()

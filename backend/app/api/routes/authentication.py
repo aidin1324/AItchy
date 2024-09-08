@@ -1,3 +1,4 @@
+from typing import Annotated
 from fastapi import APIRouter, Depends
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 
@@ -12,6 +13,8 @@ router = APIRouter()
 
 oauth2_scheme_user = OAuth2PasswordBearer(tokenUrl="auth/login/user", scheme_name="user")
 
+CommonAuthService = Annotated[AuthenticationService, Depends(get_auth_service)]
+
 
 @router.post(
     "/register/user",
@@ -21,7 +24,7 @@ oauth2_scheme_user = OAuth2PasswordBearer(tokenUrl="auth/login/user", scheme_nam
 )
 async def register(
         user_create: UserCreate,
-        auth_service: AuthenticationService = Depends(get_auth_service)
+        auth_service: CommonAuthService
 ):
     token = await auth_service.register(user_create)
     return token
@@ -48,8 +51,8 @@ async def login(
     description="Retrieve information about the currently authenticated user"
 )
 async def get_current_user(
+        auth_service: CommonAuthService,
         token: str = Depends(oauth2_scheme_user),
-        auth_service: AuthenticationService = Depends(get_auth_service)
 ):
     user = await auth_service.get_current_user(token)
     return user
@@ -62,8 +65,9 @@ async def get_current_user(
     description="Retrieve access if you are a superuser. Returns 403 if you are not."
 )
 async def get_current_superuser(
+        auth_service: CommonAuthService,
         token: str = Depends(oauth2_scheme_user),
-        auth_service: AuthenticationService = Depends(get_auth_service)
+        
 ):
     user = await auth_service.get_current_superuser(token)
     return user
@@ -76,8 +80,8 @@ async def get_current_superuser(
     description="Retrieve access if you are a premium user. Returns 403 if you are not."
 )
 async def get_current_premium_user(
+        auth_service: CommonAuthService,
         token: str = Depends(oauth2_scheme_user),
-        auth_service: AuthenticationService = Depends(get_auth_service)
 ):
     user = await auth_service.get_current_premium_user(token)
     return user

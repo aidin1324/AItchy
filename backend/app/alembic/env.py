@@ -6,10 +6,9 @@ from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine
 import os
 
 from alembic import context
-from models.database import Base
+from db.database import Base
+from config import connection_string
 
-# Задаем путь к базе данных
-database_url = "postgresql+asyncpg://postgres:adi44777@localhost:5432/testing"
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -20,9 +19,10 @@ config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-config.set_main_option('sqlalchemy.url', database_url)
+config.set_main_option('sqlalchemy.url', connection_string)
 
 # add your model's MetaData object here
+from models import ContextFactor, Effect, Emotion, MoodContent, MoodContext, MoodEntry, MoodEmotion, Note, User
 target_metadata = Base.metadata
 
 def run_migrations_offline() -> None:
