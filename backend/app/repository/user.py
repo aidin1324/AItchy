@@ -4,7 +4,7 @@ from models.user import User
 from .base import BaseRepository
 from schemas.user import UserCreate, UserUpdate
 
-6
+
 class UserRepository(BaseRepository):
 
     async def get_user_by_id(self, user_id: int) -> User | None:
@@ -35,7 +35,7 @@ class UserRepository(BaseRepository):
             update_fields = user_update.dict(exclude_unset=True)  # get rid of None
             for field, value in update_fields.items():
                 setattr(user, field, value)
-                
+
             session.add(user)
 
             await session.commit()

@@ -4,7 +4,6 @@ from sqlalchemy.orm import relationship
 from db.database import Base
 
 
-
 class ContextFactor(Base):
     __tablename__ = "context_factors"
 

@@ -1,5 +1,3 @@
-
-
 from sqlalchemy import select
 from models.mood_content import MoodContent
 from schemas.mood_content import MoodContentCreate, MoodContentResponse, MoodContentUpdate
