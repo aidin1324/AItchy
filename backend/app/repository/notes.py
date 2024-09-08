@@ -124,6 +124,9 @@ class NotesRepository(BaseRepository):
 
     async def update_note(self, note: Note, note_update: NoteUpdate) -> Note:
         async with self.connection as session:
+            
+            note.mood_id = session.execute(select(MoodContent).filter(MoodContent.type == note.mood_id)).scalars().first().id
+            
             update_fields = note_update.model_dump(exclude_unset=True)
             for field, value in update_fields.items():
                 setattr(note, field, value)

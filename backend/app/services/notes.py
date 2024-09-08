@@ -64,6 +64,7 @@ class NotesService:
             note = await self.notes_repo.get_note_by_id(note_id)
             if note is None:
                 raise HTTPException(status_code=404, detail="Note not found")
+            
 
             note = await self.notes_repo.update_note(note, note_update)
             return note

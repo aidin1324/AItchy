@@ -6,18 +6,21 @@ import userService from '../../services/userService';
 interface RegisterModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onLoginOpen: () => void;
 }
 
-const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose }) => {
+const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose, onLoginOpen }) => {
   const [formData, setFormData] = useState({
     name: '',
     surname: '',
     email: '',
     password: '',
+    confirmPassword: '',
     gender: '',
     birth_date: '',
   });
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [error, setError] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -30,6 +33,9 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose }) => {
     if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Некорректный email';
     if (!/^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9]).{8,}$/.test(formData.password)) {
       newErrors.password = 'Пароль должен содержать минимум 8 символов, 1 заглавную букву и 1 спецсимвол';
+    }
+    if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = 'Пароли не совпадают';
     }
     if (!formData.gender) newErrors.gender = 'Выберите пол';
     if (!formData.birth_date) newErrors.birth_date = 'Дата рождения обязательна';
@@ -48,10 +54,9 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose }) => {
           is_premium: false,
         });
         onClose();
-        // Handle successful registration (e.g., show success message, redirect)
+        onLoginOpen();
       } catch (error) {
-        console.error('Registration error:', error);
-        // Handle registration error (e.g., show error message)
+        setError('Ошибка регистрации. Пожалуйста, попробуйте снова.');
       }
     }
   };
@@ -120,6 +125,16 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose }) => {
               />
               {errors.password && <p className="text-red-300 text-sm">{errors.password}</p>}
               
+              <input
+                type="password"
+                name="confirmPassword"
+                placeholder="Подтвердите пароль"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                className="w-full p-2 rounded bg-white bg-opacity-20 text-white placeholder-gray-300"
+              />
+              {errors.confirmPassword && <p className="text-red-300 text-sm">{errors.confirmPassword}</p>}
+              
               <select
                 name="gender"
                 value={formData.gender}
@@ -141,6 +156,8 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ isOpen, onClose }) => {
                 className="w-full p-2 rounded bg-white bg-opacity-20 text-white"
               />
               {errors.birth_date && <p className="text-red-300 text-sm">{errors.birth_date}</p>}
+              
+              {error && <p className="text-red-300 text-sm">{error}</p>}
               
               <button
                 type="submit"

@@ -1,0 +1,20 @@
+@keyframes lavaLamp {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  .ai-lava-lamp {
+    background: linear-gradient(-45deg, #ff00e0, #8f00ff, #3d2caa, #00d4ff);
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: lavaLamp 10s ease infinite;
+  }

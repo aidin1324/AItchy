@@ -7,8 +7,9 @@ import PageHeader from "../components/notes/PageHeader";
 import NoteList from "../components/notes/NoteList";
 import CreateNoteModal from "../components/notes/CreateNoteModal";
 import EditNoteModal from "../components/notes/EditNodeModal";
-import { useNotes } from "../hooks/useNote";
+
 import AIGradient from "../components/AIGradient";
+import { useNotes } from "../hooks/useNote";
 
 const NotesPage: React.FC = () => {
   const { notes, loading, fetchNotes, addNote, editNote, removeNote } = useNotes();

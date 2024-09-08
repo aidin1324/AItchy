@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import { Mood, Note } from '../../types/noteTypes';
-import { updateNote } from '../../services/noteService';
+// import { updateNote } from '../../services/noteService';
 import ModalPortal from '../ModalPortal';
 
 interface UpdateMoodModalProps {
@@ -25,15 +25,15 @@ const moodEmojis: Record<Mood, string> = {
 const UpdateMoodModal: React.FC<UpdateMoodModalProps> = ({ isOpen, onClose, note, onMoodUpdated }) => {
   const [selectedMood, setSelectedMood] = useState<Mood>(note.mood);
 
-  const handleSave = async () => {
-    try {
-      const updatedNote = await updateNote(note.id, note.content, selectedMood);
-      onMoodUpdated(updatedNote);
-      onClose();
-    } catch (error) {
-      console.error('Error updating note mood:', error);
-    }
-  };
+  // const handleSave = async () => {
+  //   try {
+  //     const updatedNote = await updateNote(note.id, note.content, selectedMood);
+  //     onMoodUpdated(updatedNote);
+  //     onClose();
+  //   } catch (error) {
+  //     console.error('Error updating note mood:', error);
+  //   }
+  // };
   
 
   return (
@@ -93,14 +93,14 @@ const UpdateMoodModal: React.FC<UpdateMoodModalProps> = ({ isOpen, onClose, note
                 >
                   Отмена
                 </motion.button>
-                <motion.button
+                {/* <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={handleSave}
                   className="px-4 py-2 rounded-lg bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600"
                 >
                   Сохранить
-                </motion.button>
+                </motion.button> */}
               </div>
             </motion.div>
           </motion.div>
