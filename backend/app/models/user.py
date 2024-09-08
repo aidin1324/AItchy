@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, Integer, String
+from sqlalchemy import Boolean, Column, Date, Integer, String
 from sqlalchemy.orm import relationship
 
 from db.database import Base
@@ -13,7 +13,7 @@ class User(Base):
     email = Column(String, unique=True, index=True)
     hashed_password = Column(String)
     gender = Column(String)
-    age = Column(Integer)
+    birth_date = Column(Date)
     is_superuser = Column(Boolean, default=False)
     is_premium = Column(Boolean, default=False)
 

@@ -1,3 +1,4 @@
+from datetime import date
 from pydantic import BaseModel, EmailStr, field_validator
 import re
 from typing import List
@@ -11,7 +12,7 @@ class UserBase(BaseModel):
     surname: str
     email: EmailStr
     gender: str
-    age: int
+    birth_date: date
     is_superuser: bool
     is_premium: bool
 
@@ -40,7 +41,7 @@ class UserUpdate(UserBase):
     name: str | None = None
     surname: str | None = None
     gender: str | None = None
-    age: int | None = None
+    birth_date: date | None = None
     is_premium: bool | None = None
 
 

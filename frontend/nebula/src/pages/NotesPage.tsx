@@ -8,6 +8,7 @@ import NoteList from "../components/notes/NoteList";
 import CreateNoteModal from "../components/notes/CreateNoteModal";
 import EditNoteModal from "../components/notes/EditNodeModal";
 import { useNotes } from "../hooks/useNote";
+import AIGradient from "../components/AIGradient";
 
 const NotesPage: React.FC = () => {
   const { notes, loading, fetchNotes, addNote, editNote, removeNote } = useNotes();
@@ -51,9 +52,7 @@ const NotesPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 to-indigo-900 flex flex-col items-center justify-start p-4 overflow-hidden">
       <StarryBackground />
-      <h1 className="select-none text-6xl font-extrabold mb-12 text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-white-600">
-        Nebula
-      </h1>
+      <AIGradient />
 
       <div className="w-full max-w-4xl">
         <PageHeader onCreateNote={() => setIsCreateModalOpen(true)} />

@@ -9,6 +9,7 @@ import Modal from "../components/Modal";
 import StarryBackground from "../components/StarryBackground";
 import { Link } from "react-router-dom";
 import Tooltip from "../components/Tooltip";
+import AIGradient from "../components/AIGradient";
 
 const HomePage: React.FC = () => {
   const [isFirstModalOpen, setIsFirstModalOpen] = useState(false);
@@ -53,13 +54,12 @@ const HomePage: React.FC = () => {
     tap: { scale: 0.95, transition: { duration: 0.2 } },
   };
 
+  
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 to-indigo-900 flex flex-col items-center justify-center p-4 overflow-hidden">
       <StarryBackground />
-      <h1 className="select-none text-6xl font-extrabold mb-12 text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-white-600">
-  Nebula
-</h1>
-
+      <AIGradient />
 
       <div className="relative w-80 h-80">
         <div className="absolute inset-0 bg-purple-500 bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-full animate-pulse"></div>
@@ -86,9 +86,7 @@ const HomePage: React.FC = () => {
                 className="w-32 h-32 bg-gradient-to-br from-blue-500 to-teal-500 rounded-2xl shadow-lg flex flex-col items-center justify-center text-white transform transition-all duration-300 hover:rotate-6"
               >
                 <PenTool className="w-10 h-10 mb-2" />
-                <span className="text-sm font-medium">
-                  Заметки
-                </span>
+                <span className="text-sm font-medium">Заметки</span>
               </motion.button>
             </Link>
             <motion.button
@@ -153,7 +151,7 @@ const HomePage: React.FC = () => {
         onSave={handleThirdModalSave}
       />
 
-    <Tooltip /> 
+      <Tooltip />
     </div>
   );
 };
