@@ -17,5 +17,5 @@ class MoodEntry(Base):
     user_id = Column(Integer, ForeignKey("users.id"))
 
     owner = relationship("User", back_populates="mood_entries")
-    mood_emotions = relationship("MoodEmotion", back_populates="mood_entry", lazy="dynamic")
-    mood_contexts = relationship("MoodContext", back_populates="mood_entry", lazy="dynamic")
+    mood_emotions = relationship("MoodEmotion", back_populates="mood_entry", lazy="subquery")
+    mood_contexts = relationship("MoodContext", back_populates="mood_entry", lazy="subquery")

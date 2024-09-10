@@ -2,8 +2,7 @@ from pydantic import BaseModel
 
 
 class MoodContextBase(BaseModel):
-    mood_entry_id: int
-    context_factor: int
+    context_factor_id: int
     effect_id: int
 
 
@@ -17,6 +16,7 @@ class MoodContextUpdate(MoodContextBase):
 
 class MoodContextResponse(MoodContextBase):
     id: int
+    mood_entry_id: int
 
     class Config:
         from_attributes = True

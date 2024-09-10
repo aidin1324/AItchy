@@ -13,7 +13,7 @@ class MoodContextRepository(BaseRepository):
         async with self.connection as session:
             result = await session.execute(select(MoodContext))
             mood_contexts = result.scalars().all()
-        return mood_contexts
+        return list(mood_contexts)
 
     async def get_mood_context_by_id(
             self,
@@ -26,9 +26,14 @@ class MoodContextRepository(BaseRepository):
 
     async def create_mood_context(
             self,
-            mood_context_create: MoodContextCreate
+            mood_context_create: MoodContextCreate,
+            mood_entry_id: int
     ) -> MoodContext:
-        mood_context = MoodContext(**mood_context_create.model_dump())
+
+        mood_context = MoodContext(
+            mood_entry_id=mood_entry_id,
+            **mood_context_create.model_dump()
+           )
 
         async with self.connection as session:
             session.add(mood_context)

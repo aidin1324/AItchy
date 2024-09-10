@@ -13,7 +13,7 @@ class ContextFactorRepository(BaseRepository):
         async with self.connection as session:
             result = await session.execute(select(ContextFactor))
             context_factors = result.scalars().all()
-        return context_factors
+        return list(context_factors)
 
     async def get_context_factor_by_id(
             self,

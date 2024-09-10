@@ -13,7 +13,7 @@ class EmotionRepository(BaseRepository):
         async with self.connection as session:
             result = await session.execute(select(Emotion))
             emotions = result.scalars().all()
-        return emotions
+        return list(emotions)
 
     async def get_emotion_by_id(
             self,

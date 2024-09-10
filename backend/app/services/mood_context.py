@@ -31,10 +31,14 @@ class MoodContextService:
 
     async def create_mood_context(
             self,
-            mood_context_create: MoodContextCreate
+            mood_context_create: MoodContextCreate,
+            mood_entry_id: int
     ) -> MoodContext:
         try:
-            mood_context = await self.mood_context_repo.create_mood_context(mood_context_create)
+            mood_context = await self.mood_context_repo.create_mood_context(
+                mood_context_create,
+                mood_entry_id=mood_entry_id
+            )
             return mood_context
         except Exception as e:
             raise HTTPException(status_code=500, detail=str(e))

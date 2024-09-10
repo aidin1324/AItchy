@@ -10,7 +10,7 @@ class EmotionService:
     def __init__(self, emotion_repo: EmotionRepository):
         self.emotion_repo = emotion_repo
 
-    async def get_all_emotion(self):
+    async def get_all_emotion(self) -> list[Emotion]:
         try:
             emotions = await self.emotion_repo.get_all_emotions()
             return emotions

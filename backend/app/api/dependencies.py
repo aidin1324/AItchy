@@ -27,6 +27,9 @@ from services.mood_context import MoodContextService
 from repository.mood_emotion import MoodEmotionRepository
 from services.mood_emotion import MoodEmotionService
 
+from repository.mood_entry import MoodEntryRepository
+from services.mood_entry import MoodEntryService
+
 from db.database import get_db
 
 
@@ -76,6 +79,12 @@ def get_mood_emotion_repository(
         conn: AsyncSession = Depends(get_db)
 ):
     return MoodEmotionRepository(conn)
+
+
+def get_mood_entry_repository(
+        conn: AsyncSession = Depends(get_db)
+):
+    return MoodEntryRepository(conn)
 
 
 """
@@ -135,3 +144,15 @@ def get_mood_emotion_service(
         mood_emotion_repository: MoodEmotionRepository = Depends(get_mood_emotion_repository)
 ):
     return MoodEmotionService(mood_emotion_repository)
+
+
+def get_mood_entry_service(
+        mood_entry_repository: MoodEntryRepository = Depends(get_mood_entry_repository),
+        mood_context_service: MoodContextService = Depends(get_mood_context_service),
+        mood_emotion_service: MoodEmotionService = Depends(get_mood_emotion_service)
+):
+    return MoodEntryService(
+        mood_entry_repo=mood_entry_repository,
+        mood_context_serv=mood_context_service,
+        mood_emotion_serv=mood_emotion_service
+    )

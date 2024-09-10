@@ -31,10 +31,14 @@ class MoodEmotionService:
 
     async def create_mood_emotion(
             self,
-            mood_emotion_create: MoodEmotionCreate
+            mood_emotion_create: MoodEmotionCreate,
+            mood_entry_id: int
     ) -> MoodEmotion:
         try:
-            mood_emotion = await self.mood_emotion_repo.create_mood_emotion(mood_emotion_create)
+            mood_emotion = await self.mood_emotion_repo.create_mood_emotion(
+                mood_emotion_create,
+                mood_entry_id=mood_entry_id
+            )
             return mood_emotion
         except Exception as e:
             raise HTTPException(status_code=500, detail=str(e))

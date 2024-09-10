@@ -96,7 +96,6 @@ async def create_note(
     token: str = Depends(oauth2_scheme_user),
 ):
     try:
-        print(token)
         user = await auth_service.get_current_user(token)
         user_id = user.id
         new_note = await notes_service.create_note(note, user_id)

@@ -10,7 +10,7 @@ class MoodContentRepository(BaseRepository):
         async with self.connection as session:
             result = await session.execute(select(MoodContent))
             moods = result.scalars().all()
-        return moods
+        return list(moods)
     
     async def get_mood_by_id(self, mood_id: int) -> MoodContentResponse:
         async with self.connection as session:

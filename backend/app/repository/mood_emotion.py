@@ -13,7 +13,7 @@ class MoodEmotionRepository(BaseRepository):
         async with self.connection as session:
             result = await session.execute(select(MoodEmotion))
             mood_emotions = result.scalars().all()
-        return mood_emotions
+        return list(mood_emotions)
 
     async def get_mood_emotion_by_id(
             self,
@@ -26,9 +26,13 @@ class MoodEmotionRepository(BaseRepository):
 
     async def create_mood_emotion(
             self,
-            mood_emotion_create: MoodEmotionCreate
+            mood_emotion_create: MoodEmotionCreate,
+            mood_entry_id: int
     ) -> MoodEmotion:
-        mood_emotion = MoodEmotion(**mood_emotion_create.model_dump())
+        mood_emotion = MoodEmotion(
+            **mood_emotion_create.model_dump(),
+            mood_entry_id=mood_entry_id
+        )
 
         async with self.connection as session:
             session.add(mood_emotion)

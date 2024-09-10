@@ -13,7 +13,7 @@ class EffectRepository(BaseRepository):
         async with self.connection as session:
             result = await session.execute(select(Effect))
             effects = result.scalars().all()
-        return effects
+        return list(effects)
 
     async def get_effect_by_id(
             self,

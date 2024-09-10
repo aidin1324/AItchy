@@ -2,8 +2,8 @@ from pydantic import BaseModel, Field
 from typing import List
 
 from datetime import date
-from .mood_context import MoodContextResponse
-from .mood_emotion import MoodEmotionResponse
+from .mood_context import MoodContextCreate, MoodContextUpdate, MoodContextResponse
+from .mood_emotion import MoodEmotionCreate, MoodEmotionUpdate, MoodEmotionResponse
 
 
 class MoodEntryBase(BaseModel):
@@ -12,6 +12,9 @@ class MoodEntryBase(BaseModel):
     stress_level: int
     sleep_quality: int
     entry_date: date = Field(default_factory=date.today)
+
+    mood_emotions: List[MoodEmotionCreate] = []
+    mood_contexts: List[MoodContextCreate] = []
 
 
 class MoodEntryCreate(MoodEntryBase):
@@ -23,6 +26,9 @@ class MoodEntryUpdate(MoodEntryBase):
     energy_level: int | None = None
     stress_level: int | None = None
     sleep_quality: int | None = None
+
+    mood_emotions: List[MoodEmotionUpdate] = []
+    mood_contexts: List[MoodContextUpdate] = []
 
 
 class MoodEntryResponse(MoodEntryBase):
