@@ -11,16 +11,16 @@ import {
 
 
 type MoodCategory =
-  | "generalWellbeing"
-  | "energyLevel"
-  | "stressLevel"
-  | "sleepQuality";
+  | "general_well_being"
+  | "energy_level"
+  | "stress_level"
+  | "sleep_quality";
 
 interface MoodData {
-  generalWellbeing: number;
-  energyLevel: number;
-  stressLevel: number;
-  sleepQuality: number;
+  general_well_being: number;
+  energy_level: number;
+  stress_level: number;
+  sleep_quality: number;
 }
 
 const categories: {
@@ -29,22 +29,22 @@ const categories: {
   icon: React.ReactNode;
 }[] = [
   {
-    key: "generalWellbeing",
+    key: "general_well_being",
     label: "Общее состояние",
     icon: <Sun className="text-yellow-500" size={24} />,
   },
   {
-    key: "energyLevel",
+    key: "energy_level",
     label: "Уровень энергии",
     icon: <Battery className="text-green-500" size={24} />,
   },
   {
-    key: "stressLevel",
+    key: "stress_level",
     label: "Уровень стресса",
     icon: <Thermometer className="text-red-500" size={24} />,
   },
   {
-    key: "sleepQuality",
+    key: "sleep_quality",
     label: "Качество сна",
     icon: <Moon className="text-blue-500" size={24} />,
   },
@@ -57,10 +57,10 @@ const CompactMoodModal: React.FC<{
 }> = ({ isOpen, onClose, onSave }) => {
   const [step, setStep] = useState(0);
   const [moodData, setMoodData] = useState<MoodData>({
-    generalWellbeing: 5,
-    energyLevel: 5,
-    stressLevel: 5,
-    sleepQuality: 5,
+    general_well_being: 5,
+    energy_level: 5,
+    stress_level: 5,
+    sleep_quality: 5,
   });
 
   if (!isOpen) return null;

@@ -1,34 +1,37 @@
 // src/components/MoodIndicator.tsx
 import React from 'react';
-import { Mood } from '../../types/noteTypes';
+import { Mood, MoodType } from '../../types/moodTypes';
 
 interface MoodIndicatorProps {
-  mood: Mood;
+  mood: string;
 }
 
 const MoodIndicator: React.FC<MoodIndicatorProps> = ({ mood }) => {
-  const moodColors = {
+  const moodColors: Record<MoodType, string> = {
     happy: 'bg-yellow-500',
     sad: 'bg-blue-500',
     neutral: 'bg-gray-500',
-    excited: 'bg-green-500',
+    anxious: 'bg-green-500',
     angry: 'bg-red-500',
   };
 
-  const moodEmojis = {
+  const moodEmojis: Record<MoodType, string> = {
     happy: '😊',
     sad: '😢',
     neutral: '😐',
-    excited: '😃',
+    anxious: '😰',
     angry: '😠',
   };
 
+  // Утверждение типа для mood.type
+  const moodType = mood as MoodType;
+
   return (
     <div
-      className={`absolute -right-2 -top-2 w-8 h-8 rounded-full flex items-center justify-center text-white ${moodColors[mood]}`}
+      className={`absolute -right-2 -top-2 w-8 h-8 rounded-full flex items-center justify-center text-white ${moodColors[moodType]}`}
       title={mood}
     >
-      {moodEmojis[mood]}
+      {moodEmojis[moodType]}
     </div>
   );
 };

@@ -57,7 +57,7 @@ class MoodEntryRepository(BaseRepository):
             next_cursor = mood_entries[-1].id if len(mood_entries) >= limit else None
         return PaginatedResponse(
             items=mood_entries_responses[:limit],
-            next_cursor=next_cursor + 1
+            next_cursor=next_cursor + 1 if next_cursor else None
         )
 
     async def create_mood_entry(
