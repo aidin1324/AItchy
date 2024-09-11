@@ -19,12 +19,20 @@ class EffectService:
 
     async def get_effect_by_id(
             self,
-            effect_id: int
-    ) -> Effect:
+            effect_id: int,
+            convert_to_nums: bool = False
+    ) -> Effect | int:
         try:
             effect = await self.effect_repo.get_effect_by_id(effect_id)
             if effect is None:
                 raise HTTPException(status_code=404, detail="Effect not found")
+            if convert_to_nums:
+                if effect.name == "positive":
+                    return 1
+                elif effect.name == "negative":
+                    return -1
+                else:
+                    return 0
             return effect
         except Exception as e:
             raise HTTPException(status_code=500, detail=str(e))

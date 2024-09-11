@@ -27,7 +27,7 @@ async def get_all_effects(effect_service: CommonEffectService):
 
 @router.get(
     "/by-id",
-    response_model=EffectResponse,
+    response_model=EffectResponse | int,
     summary="Get effect by id",
     description="Retrieve information about a specific effect",
 )

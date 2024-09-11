@@ -24,6 +24,15 @@ class MoodContextRepository(BaseRepository):
             mood_context = result.scalars().first()
         return mood_context
 
+    async def get_context_factor_by_mood_entry_id(
+            self,
+            mood_entry_id: int
+    ) -> list[MoodContext]:
+        async with self.connection as session:
+            result = await session.execute(select(MoodContext).filter(MoodContext.mood_entry_id == mood_entry_id))
+            mood_context = result.scalars().all()
+        return list(mood_context)
+
     async def create_mood_context(
             self,
             mood_context_create: MoodContextCreate,

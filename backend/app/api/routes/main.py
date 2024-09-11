@@ -9,6 +9,7 @@ from api.routes import effect
 from api.routes import mood_context
 from api.routes import mood_emotion
 from api.routes import mood_entry
+from api.routes import analytics
 
 api_router = APIRouter()
 
@@ -64,4 +65,10 @@ api_router.include_router(
     mood_entry.router,
     tags=['Mood Entry'],
     prefix="/mood-entry"
+)
+
+api_router.include_router(
+    analytics.router,
+    tags=['Analytics'],
+    prefix="/analytics"
 )

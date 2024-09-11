@@ -2,6 +2,7 @@ from fastapi import Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from repository.user import UserRepository
+from services.analytics import AnalyticsService
 from services.user import UserService
 
 from services.authentication import AuthenticationService
@@ -155,4 +156,20 @@ def get_mood_entry_service(
         mood_entry_repo=mood_entry_repository,
         mood_context_serv=mood_context_service,
         mood_emotion_serv=mood_emotion_service
+    )
+
+
+def get_analytics_service(
+        context_factor_serv: ContextFactorService = Depends(get_context_factor_service),
+        effect_serv: EffectService = Depends(get_effect_service),
+        mood_entry_service: MoodEntryService = Depends(get_mood_entry_service),
+        mood_emotion_service: MoodEmotionService = Depends(get_mood_emotion_service),
+        emotion_service: EmotionService = Depends(get_emotion_service)
+):
+    return AnalyticsService(
+        context_factor_serv=context_factor_serv,
+        effect_serv=effect_serv,
+        mood_entry_serv=mood_entry_service,
+        mood_emotion_serv=mood_emotion_service,
+        emotion_serv=emotion_service
     )

@@ -29,6 +29,18 @@ class MoodContextService:
         except Exception as e:
             raise HTTPException(status_code=500, detail=str(e))
 
+    async def get_context_factor_by_mood_entry_id(
+            self,
+            mood_entry_id: int
+    ) -> list[MoodContext]:
+        try:
+            mood_contexts = await self.mood_context_repo.get_context_factor_by_mood_entry_id(
+                mood_entry_id
+            )
+            return mood_contexts
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=str(e))
+
     async def create_mood_context(
             self,
             mood_context_create: MoodContextCreate,
