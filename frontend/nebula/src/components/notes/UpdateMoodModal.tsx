@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
-import { Mood, Note } from '../../types/noteTypes';
+import { Note } from '../../types/noteTypes';
 // import { updateNote } from '../../services/noteService';
 import ModalPortal from '../ModalPortal';
+
+export type Mood = "happy" | "sad" | "neutral" | "anxious" | "angry";
 
 interface UpdateMoodModalProps {
   isOpen: boolean;
@@ -12,18 +14,18 @@ interface UpdateMoodModalProps {
   onMoodUpdated: (updatedNote: Note) => void;
 }
 
-const moodOptions: Mood[] = ['happy', 'sad', 'neutral', 'excited', 'angry'];
+const moodOptions: Mood[] = ['happy', 'sad', 'neutral', 'anxious', 'angry'];
 
 const moodEmojis: Record<Mood, string> = {
   happy: '😊',
   sad: '😢',
   neutral: '😐',
-  excited: '😃',
+  anxious: '😰',
   angry: '😠'
 };
 
 const UpdateMoodModal: React.FC<UpdateMoodModalProps> = ({ isOpen, onClose, note, onMoodUpdated }) => {
-  const [selectedMood, setSelectedMood] = useState<Mood>(note.mood);
+  const [selectedMood, setSelectedMood] = useState<Mood>();
 
   // const handleSave = async () => {
   //   try {

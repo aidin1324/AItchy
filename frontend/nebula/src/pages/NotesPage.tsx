@@ -10,6 +10,7 @@ import EditNoteModal from "../components/notes/EditNodeModal";
 
 import AIGradient from "../components/AIGradient";
 import { useNotes } from "../hooks/useNote";
+import { MoodType } from "../types/moodTypes";
 
 const NotesPage: React.FC = () => {
   const { notes, loading, fetchNotes, addNote, editNote, removeNote } = useNotes();
@@ -17,8 +18,8 @@ const NotesPage: React.FC = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [currentNote, setCurrentNote] = useState<Note | null>(null);
 
-  const handleCreateNote = (content: string) => {
-    addNote(content);
+  const handleCreateNote = (content: string, mood: MoodType) => {
+    addNote(content, mood);
   };
 
   const handleEditNote = (note: Note) => {
@@ -26,11 +27,11 @@ const NotesPage: React.FC = () => {
     setIsEditModalOpen(true);
   };
 
-  const handleUpdateNote = (id: string, content: string) => {
+  const handleUpdateNote = (id: number, content: string) => {
     editNote(id, content);
   };
 
-  const handleDeleteNote = (id: string) => {
+  const handleDeleteNote = (id: number) => {
     removeNote(id);
   };
 

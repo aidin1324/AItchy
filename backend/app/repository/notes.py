@@ -1,23 +1,19 @@
 from datetime import date
 from typing import Optional
-from fastapi import Depends
-from fastapi.security import OAuth2PasswordBearer
-from sqlalchemy import Date, DateTime, select
+from sqlalchemy import select
 from schemas.pagination import PaginatedResponse
 from models.mood_content import MoodContent
-from models.emotion import Emotion
 from models.notes import Note
 from repository.base import BaseRepository
 from schemas.notes import NoteCreate, NoteResponse, NoteUpdate
 
 
 class NotesRepository(BaseRepository):
-
     async def get_notes(
-            self, last_id: Optional[int] = None, limit: int = 10
+        self, user_id: int, last_id: Optional[int] = None, limit: int = 10
     ) -> PaginatedResponse[NoteResponse]:
         async with self.connection as session:
-            query = select(Note).order_by(Note.id)
+            query = select(Note).filter(Note.user_id == user_id).order_by(Note.id)
 
             if last_id:
                 query = query.filter(Note.id > last_id)
@@ -35,7 +31,7 @@ class NotesRepository(BaseRepository):
 
             return PaginatedResponse(
                 items=note_responses[:limit],  # Only return the limit number of notes
-                next_cursor=next_cursor
+                next_cursor=next_cursor,
             )
 
     async def get_note_by_id(self, note_id: int) -> Note:
@@ -45,14 +41,15 @@ class NotesRepository(BaseRepository):
         return note
 
     async def get_notes_by_date(
-            self,
-            start_date: Optional[date] = None,
-            end_date: Optional[date] = None,
-            last_id: Optional[int] = None,
-            limit: int = 10,
+        self,
+        user_id: int,
+        start_date: Optional[date] = None,
+        end_date: Optional[date] = None,
+        last_id: Optional[int] = None,
+        limit: int = 10,
     ) -> list[Note]:
         async with self.connection as session:
-            query = select(Note).order_by(Note.id)
+            query = select(Note).filter(Note.user_id == user_id).order_by(Note.id)
 
             # Фильтрация по дате начала
             if start_date is not None:
@@ -77,11 +74,11 @@ class NotesRepository(BaseRepository):
 
             return PaginatedResponse(
                 items=note_responses[:limit],  # Only return the limit number of notes
-                next_cursor=next_cursor
+                next_cursor=next_cursor,
             )
 
     async def get_notes_by_mood(
-            self, mood: str, last_id: Optional[int] = None, limit: int = 10
+        self, user_id: int, mood: str, last_id: Optional[int] = None, limit: int = 10
     ) -> list[Note]:
         async with self.connection as session:
             mood_result = await session.execute(
@@ -89,7 +86,11 @@ class NotesRepository(BaseRepository):
             )
             mood_id = mood_result.scalars().first().id
 
-            query = select(Note).filter(Note.mood_id == mood_id).order_by(Note.id)
+            query = (
+                select(Note)
+                .filter(Note.user_id == user_id, Note.mood_id == mood_id)
+                .order_by(Note.id)
+            )
 
             if last_id:
                 query = query.filter(Note.id > last_id)
@@ -106,11 +107,10 @@ class NotesRepository(BaseRepository):
 
             return PaginatedResponse(
                 items=note_responses[:limit],  # Only return the limit number of notes
-                next_cursor=next_cursor
+                next_cursor=next_cursor,
             )
 
     async def create_note(self, note: NoteCreate, user_id: int) -> Note:
-
         note = note.model_dump()
         note = Note(**note, user_id=user_id)
         async with self.connection as session:
@@ -119,20 +119,18 @@ class NotesRepository(BaseRepository):
             await session.refresh(note)
         return note
 
-    async def update_note(self, note: Note, note_update: NoteUpdate) -> Note:
+    async def update_note(self, note: Note, note_update: NoteUpdate) -> dict:
         async with self.connection as session:
-            note.mood_id = session.execute(
-                select(MoodContent).filter(MoodContent.type == note.mood_id)).scalars().first().id
-
-            update_fields = note_update.model_dump(exclude_unset=True)
-            for field, value in update_fields.items():
-                setattr(note, field, value)
+            update_data = note_update.model_dump(exclude_unset=True)
+            for field, value in update_data.items():
+                if value is not None:  # Обновляем только если значение не None
+                    setattr(note, field, value)
 
             session.add(note)
-
             await session.commit()
             await session.refresh(note)
-        return note
+        return {"detail": "Note updated"}
+
 
     async def delete_note(self, note: Note) -> dict:
         async with self.connection as session:

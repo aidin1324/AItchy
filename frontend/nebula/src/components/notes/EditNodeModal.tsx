@@ -6,7 +6,7 @@ import Modal from '../Modal';
 interface EditNoteModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSave: (id: string, content: string) => void;
+  onSave: (id: number, content: string) => void;
   note: Note | null;
 }
 

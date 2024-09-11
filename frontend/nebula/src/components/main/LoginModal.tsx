@@ -32,7 +32,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose }) => {
         username: formData.email,
         password: formData.password,
       });
-      localStorage.setItem('access_token', response.access_token);
+      localStorage.setItem('token', response.access_token);
       onClose();
       navigate('/home');
     } catch (error: unknown) {

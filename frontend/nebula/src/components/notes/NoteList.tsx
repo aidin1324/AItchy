@@ -5,7 +5,7 @@ import { Note } from "../../types/noteTypes";
 interface NoteListProps {
   notes: Note[];
   onEditNote: (note: Note) => void;
-  onDeleteNote: (id: string) => void;
+  onDeleteNote: (id: number) => void;
   onMoodUpdated: (updatedNote: Note) => void;
   onLoadMore: () => void;
   hasMore: boolean;

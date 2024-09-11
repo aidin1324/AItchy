@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { format } from 'date-fns';
+import { format, parse } from 'date-fns';
 import { PenTool, Trash } from 'lucide-react';
 import MoodIndicator from './MoodIndicator';
 import UpdateMoodModal from './UpdateMoodModal';
@@ -8,7 +8,7 @@ import { Note } from '../../types/noteTypes';
 interface NoteCardProps {
   note: Note;
   onEdit: (note: Note) => void;
-  onDelete: (id: string) => void;
+  onDelete: (id: number) => void;
   onMoodUpdated: (updatedNote: Note) => void;
 }
 
@@ -20,12 +20,15 @@ const NoteCard: React.FC<NoteCardProps> = ({ note, onEdit, onDelete, onMoodUpdat
     setIsModalOpen(true);
   };
 
+  console.log(note);
+  console.log(note.note_date)
+
   return (
     <div className="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-xl p-4 shadow-lg relative">
       <p className="text-white mb-4">{note.content}</p>
       <div className="flex justify-between items-center">
         <span className="text-gray-300 text-sm">
-          {format(new Date(note.created_at), 'dd.MM.yyyy HH:mm')}
+          {note.note_date}
         </span>
         <div className="flex items-center space-x-2">
           <button

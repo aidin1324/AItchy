@@ -1,9 +1,9 @@
-export type Mood = "happy" | "sad" | "neutral" | "excited" | "angry";
+import { Mood } from "./moodTypes";
 
 export type Note = {
-  id: string;
+  id: number;
   content: string;
   user_id: string;
-  mood: Mood;
-  created_at: string;
+  mood: string;
+  note_date: string;
 }

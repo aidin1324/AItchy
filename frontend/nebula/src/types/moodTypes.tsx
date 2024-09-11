@@ -1,26 +1,44 @@
 // src/types/moodTypes.ts
 export type Emotion = {
-  emotion: string;
+  name: string;
   intensity: number;
+  emotion_id: number;
 };
 
 export interface MoodData {
-  generalWellbeing: number;
-  energyLevel: number;
-  stressLevel: number;
-  sleepQuality: number;
+  general_well_being: number;
+  energy_level: number;
+  stress_level: number;
+  sleep_quality: number;
 }
 
 export type ContextFactor = {
-  context_factor: string;
-  effect: string;
+  name: string;
+  effect_id: number;
+  context_factor_id: number;
 };
 
 export type MoodEntry = {
-  generalWellbeing: number;
-  energyLevel: number;
-  stressLevel: number;
-  sleepQuality: number;
-  emotions: Emotion[];
-  contextFactors: ContextFactor[];
+  general_well_being: number;
+  energy_level: number;
+  stress_level: number;
+  sleep_quality: number;
+  mood_emotions: { intensity: number; emotion_id: number }[];
+  mood_contexts: { context_factor_id: number; effect_id: number }[];
+};
+
+
+export type MoodType = 'happy' | 'sad' | 'neutral' | 'anxious' | 'angry';
+
+export type Mood = {
+  type: string;  // Например: 'happy', 'sad', и т.д.
+  id: number;    // ID эмоции
+}
+
+export const moodEmojis: Record<MoodType, string> = {
+  happy: '😊',
+  sad: '😢',
+  neutral: '😐',
+  anxious: '😰',
+  angry: '😠',
 };

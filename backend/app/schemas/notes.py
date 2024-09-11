@@ -9,7 +9,7 @@ from sqlalchemy import Date
 class NoteBase(BaseModel):
     content: str
     note_date: date
-    mood_id: int
+    mood_id: int 
 
 
 class NoteCreate(NoteBase):

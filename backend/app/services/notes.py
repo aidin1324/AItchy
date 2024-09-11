@@ -11,17 +11,20 @@ class NotesService:
         self.notes_repo = notes_repo
 
     async def get_notes(
-        self, last_id: Optional[int] = None, limit: int = 10
+        self, user_id: int, last_id: Optional[int] = None, limit: int = 10
     ) -> PaginatedResponse[NoteResponse]:
         try:
-            paginated_notes = await self.notes_repo.get_notes(last_id=last_id, limit=limit)
+            paginated_notes = await self.notes_repo.get_notes(
+                user_id=user_id, last_id=last_id, limit=limit
+            )
             return paginated_notes
         except Exception as e:
             raise HTTPException(status_code=500, detail=str(e))
 
     async def get_note_by_id(self, note_id: int) -> NoteResponse:
         try:
-            note = await self.notes_repo.get_note_by_id(note_id)
+            note = await self.notes_repo.get_note_by_id(note_id=note_id
+            )
             if note is None:
                 raise HTTPException(status_code=404, detail="Note not found")
             return note
@@ -29,25 +32,38 @@ class NotesService:
             raise HTTPException(status_code=500, detail=str(e))
 
     async def get_notes_by_date(
-        self, start_date: Optional[date] = None, end_date: Optional[date] = None, last_id: Optional[int] = None, limit: int = 10
+        self,
+        user_id: int,
+        start_date: Optional[date] = None,
+        end_date: Optional[date] = None,
+        last_id: Optional[int] = None,
+        limit: int = 10,
     ) -> PaginatedResponse[NoteResponse]:
         try:
             if start_date and end_date and start_date > end_date:
                 raise HTTPException(status_code=400, detail="Invalid date range")
 
-            paginated_notes = await self.notes_repo.get_notes_by_date(start_date, end_date, last_id=last_id, limit=limit)
+            paginated_notes = await self.notes_repo.get_notes_by_date(
+                user_id=user_id,
+                start_date=start_date,
+                end_date=end_date,
+                last_id=last_id,
+                limit=limit,
+            )
             return paginated_notes
         except Exception as e:
             raise HTTPException(status_code=500, detail=str(e))
 
     async def get_notes_by_mood(
-        self, mood: str, last_id: Optional[int] = None, limit: int = 10
+        self, user_id: int, mood: str, last_id: Optional[int] = None, limit: int = 10
     ) -> PaginatedResponse[NoteResponse]:
         try:
             if not mood:
                 raise HTTPException(status_code=400, detail="Invalid mood")
 
-            paginated_notes = await self.notes_repo.get_notes_by_mood(mood, last_id=last_id, limit=limit)
+            paginated_notes = await self.notes_repo.get_notes_by_mood(
+                user_id=user_id, mood=mood, last_id=last_id, limit=limit
+            )
             return paginated_notes
         except Exception as e:
             raise HTTPException(status_code=500, detail=str(e))
@@ -59,15 +75,14 @@ class NotesService:
         except Exception as e:
             raise HTTPException(status_code=500, detail=f"Error occurred: {str(e)}")
 
-    async def update_note(self, note_id: int, note_update: NoteUpdate) -> NoteResponse:
+    async def update_note(self, note_id: int, note_update: NoteUpdate) -> dict:
         try:
-            note = await self.notes_repo.get_note_by_id(note_id)
+            note = await self.notes_repo.get_note_by_id(note_id=note_id)
             if note is None:
                 raise HTTPException(status_code=404, detail="Note not found")
-            
 
-            note = await self.notes_repo.update_note(note, note_update)
-            return note
+            message = await self.notes_repo.update_note(note, note_update)
+            return message
         except Exception as e:
             raise HTTPException(status_code=500, detail=str(e))
 
