@@ -10,6 +10,7 @@ from api.routes import mood_context
 from api.routes import mood_emotion
 from api.routes import mood_entry
 from api.routes import analytics
+from api.routes import openai_api
 
 api_router = APIRouter()
 
@@ -71,4 +72,10 @@ api_router.include_router(
     analytics.router,
     tags=['Analytics'],
     prefix="/analytics"
+)
+
+api_router.include_router(
+    openai_api.router,
+    tags=['OpenAI Api'],
+    prefix="/entry-analyze"
 )

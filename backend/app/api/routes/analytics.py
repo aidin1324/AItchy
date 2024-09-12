@@ -31,7 +31,7 @@ CommonAnalyticsService = Annotated[
     summary="Get mood_entries by date",
     description="Retrieve information about mood_entries by date with pagination",
 )
-async def get_mood_entries_by_date(
+async def get_analytics_mood_entry_by_date(
         auth_service: CommonAuthService,
         analytics_service: CommonAnalyticsService,
         token: str = Depends(oauth2_scheme_user),

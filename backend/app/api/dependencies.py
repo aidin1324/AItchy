@@ -31,6 +31,8 @@ from services.mood_emotion import MoodEmotionService
 from repository.mood_entry import MoodEntryRepository
 from services.mood_entry import MoodEntryService
 
+from services.openai_api import OpenAIAPIService
+
 from db.database import get_db
 
 
@@ -161,15 +163,23 @@ def get_mood_entry_service(
 
 def get_analytics_service(
         context_factor_serv: ContextFactorService = Depends(get_context_factor_service),
-        effect_serv: EffectService = Depends(get_effect_service),
+        effect_service: EffectService = Depends(get_effect_service),
         mood_entry_service: MoodEntryService = Depends(get_mood_entry_service),
         mood_emotion_service: MoodEmotionService = Depends(get_mood_emotion_service),
         emotion_service: EmotionService = Depends(get_emotion_service)
 ):
     return AnalyticsService(
         context_factor_serv=context_factor_serv,
-        effect_serv=effect_serv,
+        effect_serv=effect_service,
         mood_entry_serv=mood_entry_service,
         mood_emotion_serv=mood_emotion_service,
         emotion_serv=emotion_service
+    )
+
+
+def get_openai_api_service(
+        note_service: NotesService = Depends(get_notes_service)
+):
+    return OpenAIAPIService(
+        note_serv=note_service
     )

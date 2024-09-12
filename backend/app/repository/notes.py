@@ -131,7 +131,6 @@ class NotesRepository(BaseRepository):
             await session.refresh(note)
         return {"detail": "Note updated"}
 
-
     async def delete_note(self, note: Note) -> dict:
         async with self.connection as session:
             await session.delete(note)
