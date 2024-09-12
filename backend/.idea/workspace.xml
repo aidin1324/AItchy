@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="d6844852-7532-4d4a-bc5b-d91b32262666" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/alembic.ini" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/alembic/README" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/alembic/env.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/alembic/script.py.mako" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/alembic/versions/03559aa24a7f_chaged_age_to_birth_date_in_user_model.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/alembic/versions/4a05d72e93a6_initial_migration.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/alembic/versions/580481575520_initial_migration_models.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/alembic/versions/cfa0133e118b_fixed_emotiob_problem.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/dependencies.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/routes/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/routes/authentication.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/routes/context_factor.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/routes/effect.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/routes/emotion.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/routes/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/routes/mood_content.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/routes/mood_context.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/routes/mood_emotion.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/routes/mood_entry.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api/routes/notes.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/config.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/db/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/db/database.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/context_factor.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/effect.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/emotion.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/mood_content.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/mood_context.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/mood_emotion.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/mood_entry.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/notes.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/user.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/repository/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/repository/base.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/repository/context_factor.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/repository/effect.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/repository/emotion.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/repository/mood_content.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/repository/mood_context.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/repository/mood_emotion.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/repository/mood_entry.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/repository/notes.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/repository/user.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/schemas/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/schemas/context_factor.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/schemas/effect.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/schemas/emotion.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/schemas/mood_content.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/schemas/mood_context.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/schemas/mood_emotion.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/schemas/mood_entry.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/schemas/notes.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/schemas/pagination.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/schemas/token.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/schemas/user.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/authentication.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/context_factor.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/effect.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/emotion.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/mood_content.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/mood_context.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/mood_emotion.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/mood_entry.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/notes.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/security.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/services/user.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/poetry.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyproject.toml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/public/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/public/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/public/logo192.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/public/logo512.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/public/manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/public/robots.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/App.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/App.test.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/App.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/components/AIGradient.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/components/CompactContextFactorsModal.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/components/CompactMoodModal.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/components/EmotionSelector.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/components/Modal.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/components/ModalPortal.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/components/Notification.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/components/StarryBackground.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/components/Tooltip.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/components/main/LoginModal.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/components/main/RegisterModal.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/components/notes/CreateNoteModal.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/components/notes/EditNodeModal.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/components/notes/MoodIndicator.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/components/notes/NoteCard.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/components/notes/NoteList.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/components/notes/NoteModal.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/components/notes/PageHeader.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/components/notes/UpdateMoodModal.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/components/test/ContextFactorComponent.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/components/test/EffectComponents.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/components/test/EmotionComponent.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/global.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/hooks/useNote.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/index.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/logo.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/pages/HomePage.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/pages/MainPage.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/pages/NotesPage.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/pages/ProfilePage.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/pages/test/TestPage.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/react-app-env.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/reportWebVitals.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/routes/Routes.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/services/noteService.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/services/userService.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/services/utilsSerivce.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/setupTests.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/types/authTypes.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/types/moodTypes.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/src/types/noteTypes.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/tailwind.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/nebula/tsconfig.json" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="2lvd9HbZQtpTWoTCiqcoRvy5JYw" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "dev",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d6844852-7532-4d4a-bc5b-d91b32262666" name="Changes" comment="" />
+      <created>1726064333057</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1726064333057</updated>
+      <workItem from="1726064336369" duration="54000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
