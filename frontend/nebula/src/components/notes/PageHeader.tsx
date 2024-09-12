@@ -29,7 +29,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({ onCreateNote }) => {
 
       <div className="flex space-x-4">
         <div className="relative group">
-          <Link to="/">
+          <Link to="/home">
             <motion.button
               variants={buttonVariants}
               whileHover="hover"

@@ -41,10 +41,12 @@ const HomePage: React.FC = () => {
     setIsThirdModalOpen(true);
   };
 
-  const handleThirdModalSave = async (factors: Omit<ContextFactor, 'name'>[]) => {
+  const handleThirdModalSave = async (
+    factors: Omit<ContextFactor, "name">[]
+  ) => {
     setMoodEntry((prev) => ({ ...prev, mood_contexts: factors }));
     setIsThirdModalOpen(false);
-  
+
     // Преобразование данных перед отправкой
     const dataToSend = {
       general_well_being: moodEntry.general_well_being,
@@ -54,41 +56,39 @@ const HomePage: React.FC = () => {
       mood_emotions: moodEntry.mood_emotions,
       mood_contexts: factors,
     };
-  
+
     console.log("Отправка данных:", dataToSend);
-  
+
     try {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       if (!token) {
         throw new Error("Токен не найден в localStorage");
       }
-  
-      const response = await fetch('http://127.0.0.1:8000/mood-entry/create', {
-        method: 'POST',
+
+      const response = await fetch("http://127.0.0.1:8000/mood-entry/create", {
+        method: "POST",
         headers: {
-          'Accept': 'application/json',
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(dataToSend),
       });
-  
+
       if (!response.ok) {
         throw new Error(`Ошибка при отправке данных: ${response.statusText}`);
       }
-  
+
       const result = await response.json();
       console.log("Ответ от сервера:", result);
       // Показываем уведомление
       setShowNotification(true);
       // Скрываем уведомление через 3 секунды
       setTimeout(() => setShowNotification(false), 3000);
-  
     } catch (error) {
       console.error("Ошибка при отправке данных:", error);
     }
   };
-  
 
   const updateMoodEntry = (field: keyof MoodEntry, value: any) => {
     setMoodEntry((prev) => ({ ...prev, [field]: value }));
@@ -117,12 +117,17 @@ const HomePage: React.FC = () => {
       <StarryBackground />
       <AIGradient />
 
-      <Notification 
-        isVisible={showNotification} 
+      <Notification
+        isVisible={showNotification}
         message="Опрос успешно отправлен!"
       />
 
-      <motion.div className="relative w-80 h-80" variants={itemVariants} initial="hidden" animate="visible">
+      <motion.div
+        className="relative w-80 h-80"
+        variants={itemVariants}
+        initial="hidden"
+        animate="visible"
+      >
         <div className="absolute inset-0 bg-purple-500 bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-full animate-pulse"></div>
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="grid grid-cols-2 gap-6">
@@ -147,15 +152,17 @@ const HomePage: React.FC = () => {
                 <span className="text-sm font-medium">Заметки</span>
               </motion.button>
             </Link>
-            <motion.button
-              variants={{ ...itemVariants, ...buttonVariants }}
-              whileHover="hover"
-              whileTap="tap"
-              className="w-32 h-32 bg-gradient-to-br from-yellow-500 to-red-500 rounded-2xl shadow-lg flex flex-col items-center justify-center text-white transform transition-all duration-300 hover:rotate-6"
-            >
-              <BarChart2 className="w-10 h-10 mb-2" />
-              <span className="text-sm font-medium">Статистика</span>
-            </motion.button>
+            <Link to="/stats">
+              <motion.button
+                variants={{ ...itemVariants, ...buttonVariants }}
+                whileHover="hover"
+                whileTap="tap"
+                className="w-32 h-32 bg-gradient-to-br from-yellow-500 to-red-500 rounded-2xl shadow-lg flex flex-col items-center justify-center text-white transform transition-all duration-300 hover:rotate-6"
+              >
+                <BarChart2 className="w-10 h-10 mb-2" />
+                <span className="text-sm font-medium">Статистика</span>
+              </motion.button>
+            </Link>
             <Link to="/profile">
               <motion.button
                 variants={{ ...itemVariants, ...buttonVariants }}
@@ -189,7 +196,9 @@ const HomePage: React.FC = () => {
         </p>
         <EmotionSelector
           emotions={moodEntry.mood_emotions}
-          onEmotionChange={(emotions) => updateMoodEntry("mood_emotions", emotions)}
+          onEmotionChange={(emotions) =>
+            updateMoodEntry("mood_emotions", emotions)
+          }
         />
         <button
           onClick={handleSecondModalSave}
@@ -204,8 +213,6 @@ const HomePage: React.FC = () => {
         onClose={() => setIsThirdModalOpen(false)}
         onSave={handleThirdModalSave}
       />
-
-      
 
       <Tooltip />
     </div>

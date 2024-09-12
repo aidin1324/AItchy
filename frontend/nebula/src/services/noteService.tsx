@@ -186,21 +186,49 @@ export const updateNote = async (
   content: string,
   mood?: Mood
 ): Promise<Note> => {
-  console.log(
-    "updateNote called with id:",
-    id,
-    "content:",
-    content,
-    "mood:",
-    mood
-  );
-  return {
-    id: Number(id), // Возвращаем id как number
-    content,
-    user_id: "user123",
-    mood: mood ? mood.type : "happy", // Хардкодируем значение для mood, если передан mood
-    note_date: new Date().toISOString(),
-  };
+  try {
+    console.log(
+      "updateNote called with id:",
+      id,
+      "content:",
+      content,
+      "mood:",
+      mood
+    );
+
+    // Формируем тело запроса
+    const body = {
+      content,
+      mood_id: mood, // mood_id будет отправлено только если mood задан
+    };
+
+    // Выполняем PATCH-запрос
+    const response = await fetch(
+      `http://127.0.0.1:8000/notes/update?note_id=${id}`,
+      {
+        method: "PATCH",
+        headers: {
+          accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`, // Получаем токен авторизации
+        },
+        body: JSON.stringify(body),
+      }
+    );
+
+    // Проверка успешности запроса
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.detail || "Failed to update note");
+    }
+
+    // Получаем обновленную заметку из ответа
+    const updatedNote = await response.json();
+    return updatedNote;
+  } catch (error) {
+    console.error("Error updating note:", error);
+    throw error;
+  }
 };
 
 export const deleteNote = async (id: number): Promise<void> => {

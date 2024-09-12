@@ -27,12 +27,14 @@ const NotesPage: React.FC = () => {
     setIsEditModalOpen(true);
   };
 
-  const handleUpdateNote = (id: number, content: string) => {
-    editNote(id, content);
+  const handleUpdateNote = async (id: number, content: string) => {
+    await editNote(id, content);
+    window.location.reload();
   };
 
-  const handleDeleteNote = (id: number) => {
-    removeNote(id);
+  const handleDeleteNote = async (id: number) => {
+    await removeNote(id);
+    fetchNotes(); // Перезагрузка списка заметок после удаления
   };
 
   const handleLoadMore = () => {
@@ -40,8 +42,7 @@ const NotesPage: React.FC = () => {
   };
 
   const handleMoodUpdated = (updatedNote: Note) => {
-    // Обновите состояние заметок с обновленной заметкой
-    console.log("bababoi");
+    fetchNotes(); // Перезагрузка списка заметок после обновления настроения
   };
 
   const hasMore = !loading && notes.length > 0; // Adjust this condition based on your logic
@@ -64,11 +65,9 @@ const NotesPage: React.FC = () => {
           onEditNote={handleEditNote}
           onDeleteNote={handleDeleteNote}
           onMoodUpdated={handleMoodUpdated}
-          onLoadMore={handleLoadMore} // Corrected prop
-          hasMore={hasMore} // Corrected prop
+          onLoadMore={handleLoadMore}
+          hasMore={hasMore}
         />
-
-        
       </div>
 
       <CreateNoteModal

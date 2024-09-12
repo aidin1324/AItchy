@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import { Note } from '../../types/noteTypes';
-// import { updateNote } from '../../services/noteService';
 import ModalPortal from '../ModalPortal';
 
 export type Mood = "happy" | "sad" | "neutral" | "anxious" | "angry";
@@ -14,8 +13,6 @@ interface UpdateMoodModalProps {
   onMoodUpdated: (updatedNote: Note) => void;
 }
 
-const moodOptions: Mood[] = ['happy', 'sad', 'neutral', 'anxious', 'angry'];
-
 const moodEmojis: Record<Mood, string> = {
   happy: '😊',
   sad: '😢',
@@ -24,19 +21,8 @@ const moodEmojis: Record<Mood, string> = {
   angry: '😠'
 };
 
-const UpdateMoodModal: React.FC<UpdateMoodModalProps> = ({ isOpen, onClose, note, onMoodUpdated }) => {
-  const [selectedMood, setSelectedMood] = useState<Mood>();
-
-  // const handleSave = async () => {
-  //   try {
-  //     const updatedNote = await updateNote(note.id, note.content, selectedMood);
-  //     onMoodUpdated(updatedNote);
-  //     onClose();
-  //   } catch (error) {
-  //     console.error('Error updating note mood:', error);
-  //   }
-  // };
-  
+const UpdateMoodModal: React.FC<UpdateMoodModalProps> = ({ isOpen, onClose, note }) => {
+  const currentMood = note.mood as Mood;
 
   return (
     <ModalPortal>
@@ -56,7 +42,7 @@ const UpdateMoodModal: React.FC<UpdateMoodModalProps> = ({ isOpen, onClose, note
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-gradient-to-br from-purple-700 to-indigo-800 p-6 rounded-2xl shadow-xl w-96 text-white z-50 relative"
+              className="bg-gradient-to-br from-purple-700 to-indigo-800 p-6 rounded-2xl shadow-xl w-80 text-white z-50 relative flex flex-col items-center"
             >
               <button
                 onClick={onClose}
@@ -64,46 +50,18 @@ const UpdateMoodModal: React.FC<UpdateMoodModalProps> = ({ isOpen, onClose, note
               >
                 <X size={24} />
               </button>
-              <h2 className="text-2xl font-bold mb-4 text-center">Обновить настроение</h2>
-              <p className="text-sm text-purple-200 mb-6 text-center">
-                Если вы считаете, что у этой заметки другое настроение, то вы можете выбрать из имеющихся вариантов и изменить его
-              </p>
-              <div className="mb-6 flex flex-wrap justify-center">
-                {moodOptions.map(mood => (
-                  <motion.button
-                    key={mood}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => setSelectedMood(mood)}
-                    className={`px-4 py-2 rounded-full m-1 flex items-center ${
-                      selectedMood === mood
-                        ? 'bg-gradient-to-r from-pink-500 to-purple-500'
-                        : 'bg-purple-600 hover:bg-purple-500'
-                    }`}
-                  >
-                    <span className="mr-2">{moodEmojis[mood]}</span>
-                    <span className="capitalize">{mood}</span>
-                  </motion.button>
-                ))}
+              <h2 className="text-2xl font-bold mb-4 text-center capitalize">{currentMood}</h2>
+              <div className="text-9xl mb-6">
+                {moodEmojis[currentMood]}
               </div>
-              <div className="flex justify-end space-x-4">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={onClose}
-                  className="px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-500"
-                >
-                  Отмена
-                </motion.button>
-                {/* <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  onClick={handleSave}
-                  className="px-4 py-2 rounded-lg bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600"
-                >
-                  Сохранить
-                </motion.button> */}
-              </div>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={onClose}
+                className="px-4 py-2 rounded-lg bg-purple-600 hover:bg-purple-500"
+              >
+                Закрыть
+              </motion.button>
             </motion.div>
           </motion.div>
         )}

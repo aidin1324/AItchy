@@ -2,7 +2,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Note } from '../types/noteTypes';
 import { getNotes, createNote, updateNote, deleteNote } from '../services/noteService';
-import { MoodType } from '../types/moodTypes';
+import { Mood, MoodType } from '../types/moodTypes';
 
 export const useNotes = () => {
   const [notes, setNotes] = useState<Note[]>([]);
@@ -38,19 +38,33 @@ export const useNotes = () => {
     }
   };
 
-  const editNote = async (id: number, content: string) => {
-    console.log('editNote called with id:', id, 'content:', content);
-    // Вместо вызова реального updateNote, просто выводим сообщение и имитируем обновление
-    const updatedNote = {
-      id: Number(id), // Преобразуем id в number
-      content,
-      user_id: 'user123',
-      mood: 'happy', // Жестко заданное значение
-      note_date: new Date().toISOString(),
-    };
+  const formatDate = (date: Date): string => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // добавляем 1 к месяцу, потому что getMonth() возвращает месяцы с 0
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
+  const editNote = async (id: number, content: string, mood?: Mood) => {
+    try {
+      console.log('editNote called with id:', id, 'content:', content);
   
-    // Имитация обновления заметки в состоянии
-    setNotes(prevNotes => prevNotes.map(note => note.id === Number(id) ? updatedNote : note));
+      // Форматируем текущую дату
+      const formattedDate = formatDate(new Date());
+  
+      // Вызываем функцию реального обновления заметки
+      const updatedNote = await updateNote(id, content, mood);
+  
+      // Форматируем дату заметки после обновления
+      updatedNote.note_date = formattedDate;
+  
+      // Обновляем состояние заметок с помощью данных, возвращенных из updateNote
+      setNotes((prevNotes) =>
+        prevNotes.map((note) => (note.id === Number(id) ? updatedNote : note))
+      );
+    } catch (error) {
+      console.error("Error updating note:", error);
+    }
   };
   
   const removeNote = async (id: number) => {
