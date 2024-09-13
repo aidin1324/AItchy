@@ -121,7 +121,7 @@ const EmotionLineChart: React.FC<EmotionLineChartProps> = ({ data }) => {
         <LineChart data={processedData}>
           <CartesianGrid strokeDasharray="3 3" stroke="#ffffff33" />
           <XAxis dataKey="date" stroke="#fff" />
-          <YAxis stroke="#fff" domain={[0, 'auto']} />
+          <YAxis stroke="#fff" domain={[0, 10]} />
           <Tooltip 
             contentStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.8)', color: '#000' }}
           />

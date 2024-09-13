@@ -25,6 +25,7 @@ const HomePage: React.FC = () => {
     mood_contexts: [],
   });
   const [showNotification, setShowNotification] = useState(false);
+  const [showErrorNotification, setShowErrorNotification] = useState(false);
 
   const handleFirstModalSave = (data: MoodData) => {
     setMoodEntry((prev) => ({ ...prev, ...data }));
@@ -76,15 +77,20 @@ const HomePage: React.FC = () => {
       });
 
       if (!response.ok) {
-        throw new Error(`Ошибка при отправке данных: ${response.statusText}`);
+        console.log(response);
+        if (response.status === 400) {
+          // Если ошибка дублирования, выводим всплывающее окно с ошибкой
+          setShowErrorNotification(true);
+          setTimeout(() => setShowErrorNotification(false), 4000); // Убираем через 3 секунды
+        } else {
+          throw new Error(`Ошибка при отправке данных: ${response.statusText}`);
+        }
+      } else {
+        const result = await response.json();
+        console.log("Ответ от сервера:", result);
+        setShowNotification(true);
+        setTimeout(() => setShowNotification(false), 3000); // Убираем через 3 секунды
       }
-
-      const result = await response.json();
-      console.log("Ответ от сервера:", result);
-      // Показываем уведомление
-      setShowNotification(true);
-      // Скрываем уведомление через 3 секунды
-      setTimeout(() => setShowNotification(false), 3000);
     } catch (error) {
       console.error("Ошибка при отправке данных:", error);
     }
@@ -120,6 +126,12 @@ const HomePage: React.FC = () => {
       <Notification
         isVisible={showNotification}
         message="Опрос успешно отправлен!"
+      />
+
+      <Notification
+        isVisible={showErrorNotification}
+        message="Заполнять данные можно только раз в день!"
+        isError={true}
       />
 
       <motion.div

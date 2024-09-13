@@ -1,5 +1,6 @@
 from datetime import date
 
+from asyncpg import UniqueViolationError
 from fastapi.exceptions import HTTPException
 
 from repository.mood_entry import MoodEntryRepository
@@ -10,6 +11,7 @@ from models.mood_entry import MoodEntry
 
 from schemas.mood_entry import MoodEntryCreate, MoodEntryUpdate, MoodEntryResponse
 from schemas.pagination import PaginatedResponse
+from sqlalchemy.exc import IntegrityError
 
 
 class MoodEntryService:
@@ -81,6 +83,11 @@ class MoodEntryService:
                 )
 
             return mood_entry
+        except IntegrityError as e:
+            raise HTTPException(
+                status_code=400,
+                detail="duplicate key value"
+            )
         except Exception as e:
             raise HTTPException(status_code=500, detail=str(e))
 

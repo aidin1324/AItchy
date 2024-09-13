@@ -44,7 +44,7 @@ class AnalyticsService:
             length = len(mood_entries.items)
             mood_entry_stats_chart = [
                 {
-                    "name": "general_well-being",
+                    "name": "general_well_being",
                     "mean": 0
                 },
                 {

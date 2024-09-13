@@ -23,6 +23,34 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import EmotionLineChart from "../components/EmotionLineChart";
 
+const emotionTranslations: { [key: string]: string } = {
+  joy: "Радость",
+  sadness: "Грусть",
+  anger: "Гнев",
+  fear: "Страх",
+  surprise: "Удивление",
+  disgust: "Отвращение",
+  interest: "Интерес",
+  calmness: "Спокойствие",
+};
+
+const contextFactorTranslations: { [key: string]: string } = {
+  job: "Работа",
+  relationships: "Отношения",
+  weather: "Погода",
+  health: "Здоровье",
+  finance: "Финансы",
+  hobby: "Хобби",
+  family: "Семья",
+};
+
+const generalStateTranslations: { [key: string]: string } = {
+  general_well_being: "Состояние в целом",
+  energy_level: "Энергия",
+  stress_level: "Стресс",
+  sleep_quality: "Качество сна",
+};
+
 // Обновленные интерфейсы
 interface MoodEntryStats {
   name: string;
@@ -112,7 +140,9 @@ const StatisticsPage: React.FC = () => {
   const [data, setData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [startDate, setStartDate] = useState<Date | null>(new Date("2024-09-01"));
+  const [startDate, setStartDate] = useState<Date | null>(
+    new Date("2024-09-01")
+  );
   const [endDate, setEndDate] = useState<Date | null>(new Date());
 
   const moodColors = ["#FF6B6B", "#4ECDC4", "#45B7D1", "#F7B731"];
@@ -183,41 +213,61 @@ const StatisticsPage: React.FC = () => {
       </h1>
 
       <div className="flex flex-col md:flex-row justify-between items-center mb-6 space-y-4 md:space-y-0 md:space-x-6">
-  <div className="flex flex-col w-full md:w-auto">
-    <label className="text-gray-300 mb-1 text-sm">Дата начала:</label>
-    <div className="relative">
-      <DatePicker
-        selected={startDate}
-        onChange={(date: Date | null) => setStartDate(date)}
-        dateFormat="dd.MM.yyyy"
-        className="w-full py-2 px-3 pl-8 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out"
-      />
-      <svg className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-        <line x1="16" y1="2" x2="16" y2="6"></line>
-        <line x1="8" y1="2" x2="8" y2="6"></line>
-        <line x1="3" y1="10" x2="21" y2="10"></line>
-      </svg>
-    </div>
-  </div>
-  <div className="flex flex-col w-full md:w-auto">
-    <label className="text-gray-300 mb-1 text-sm">Дата конца:</label>
-    <div className="relative">
-      <DatePicker
-        selected={endDate}
-        onChange={(date: Date | null) => setEndDate(date)}
-        dateFormat="dd.MM.yyyy"
-        className="w-full py-2 px-3 pl-8 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out"
-      />
-      <svg className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-        <line x1="16" y1="2" x2="16" y2="6"></line>
-        <line x1="8" y1="2" x2="8" y2="6"></line>
-        <line x1="3" y1="10" x2="21" y2="10"></line>
-      </svg>
-    </div>
-  </div>
-</div>
+        <div className="flex flex-col w-full md:w-auto">
+          <label className="text-gray-300 mb-1 text-sm">Дата начала:</label>
+          <div className="relative">
+            <DatePicker
+              selected={startDate}
+              onChange={(date: Date | null) => setStartDate(date)}
+              dateFormat="dd.MM.yyyy"
+              className="w-full py-2 px-3 pl-8 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out"
+            />
+            <svg
+              className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+          </div>
+        </div>
+        <div className="flex flex-col w-full md:w-auto">
+          <label className="text-gray-300 mb-1 text-sm">Дата конца:</label>
+          <div className="relative">
+            <DatePicker
+              selected={endDate}
+              onChange={(date: Date | null) => setEndDate(date)}
+              dateFormat="dd.MM.yyyy"
+              className="w-full py-2 px-3 pl-8 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out"
+            />
+            <svg
+              className="absolute left-2 top-1/2 transform -translate-y-1/2 text-gray-400"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+          </div>
+        </div>
+      </div>
       <div className="w-full max-w-3xl md:max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
         <div className="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-xl p-4 md:p-6">
           <h2 className="text-xl md:text-2xl font-semibold text-white mb-4">
@@ -226,8 +276,15 @@ const StatisticsPage: React.FC = () => {
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={data.mood_entry_stats_chart}>
               <CartesianGrid strokeDasharray="3 3" stroke="#ffffff33" />
-              <XAxis dataKey="name" stroke="#fff" />
-              <YAxis stroke="#fff" />
+              <XAxis
+                dataKey="name"
+                stroke="#fff"
+                tickFormatter={(state) =>
+                  generalStateTranslations[state] || state
+                }
+              />
+
+              <YAxis stroke="#fff" domain={[1, 10]} />
               <Tooltip content={<CustomTooltip />} />
               <Bar dataKey="mean">
                 {data.mood_entry_stats_chart.map((entry, index) => (
@@ -270,7 +327,15 @@ const StatisticsPage: React.FC = () => {
             >
               <CartesianGrid strokeDasharray="3 3" stroke="#ffffff33" />
               <XAxis type="number" stroke="#fff" domain={[-1, 1]} />
-              <YAxis dataKey="name" type="category" stroke="#fff" />
+              <YAxis
+                dataKey="name"
+                type="category"
+                stroke="#fff"
+                tickFormatter={(factor) =>
+                  contextFactorTranslations[factor] || factor
+                }
+              />
+
               <Tooltip content={<CustomTooltip />} />
               <ReferenceLine x={0} stroke="#fff" />
               <Bar dataKey="mean">
@@ -298,28 +363,28 @@ const StatisticsPage: React.FC = () => {
         </div>
 
         <div className="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-xl p-4 md:p-6">
-      <h2 className="text-xl md:text-2xl font-semibold text-white mb-4">
-        Динамика эмоций
-      </h2>
-      <EmotionLineChart data={data.emotion_line_chart} />
-    </div>
+          <h2 className="text-xl md:text-2xl font-semibold text-white mb-4">
+            Динамика эмоций
+          </h2>
+          <EmotionLineChart data={data.emotion_line_chart} />
+        </div>
 
         <div className="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-xl p-4 md:p-6">
           <h2 className="text-xl md:text-2xl font-semibold text-white mb-4">
             Радар эмоций
           </h2>
           <ResponsiveContainer width="100%" height={300}>
-            <RadarChart
-              cx="50%"
-              cy="50%"
-              outerRadius="80%"
-              data={data.emotion_radar_chart}
-            >
-              <PolarGrid stroke="#ffffff33" />
-              <PolarAngleAxis dataKey="name" stroke="#fff" />
-              <PolarRadiusAxis angle={30} domain={[0, 1]} stroke="#fff" />
+            <RadarChart data={data.emotion_radar_chart}>
+              <PolarGrid />
+              <PolarAngleAxis
+                dataKey="name"
+                tickFormatter={(emotion) =>
+                  emotionTranslations[emotion] || emotion
+                }
+              />
+              <PolarRadiusAxis />
               <Radar
-                name="Emotions"
+                name="Эмоции"
                 dataKey="value"
                 stroke="#8884d8"
                 fill="#8884d8"
