@@ -22,6 +22,7 @@ import { Link } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import EmotionLineChart from "../components/EmotionLineChart";
+import AITooltip from "../components/AITooltip";
 
 const emotionTranslations: { [key: string]: string } = {
   joy: "Радость",
@@ -409,6 +410,7 @@ const StatisticsPage: React.FC = () => {
       >
         Вернуться на главную
       </Link>
+
     </div>
   );
 };

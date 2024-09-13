@@ -69,8 +69,18 @@ export const useNotes = () => {
   
   const removeNote = async (id: number) => {
     console.log('removeNote called with id:', id);
-    // Вместо вызова реального deleteNote, просто выводим сообщение и имитируем удаление
-    setNotes(prevNotes => prevNotes.filter(note => note.id !== Number(id)));
+  
+    try {
+      // Вызываем реальный метод deleteNote для удаления заметки
+      await deleteNote(id);
+  
+      // Обновляем состояние после успешного удаления
+      setNotes(prevNotes => prevNotes.filter(note => note.id !== id));
+      
+      console.log(`Заметка с id: ${id} успешно удалена из состояния`);
+    } catch (error) {
+      console.error('Ошибка при удалении заметки:', error);
+    }
   };
   
 

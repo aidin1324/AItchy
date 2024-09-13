@@ -11,9 +11,13 @@ import EditNoteModal from "../components/notes/EditNodeModal";
 import AIGradient from "../components/AIGradient";
 import { useNotes } from "../hooks/useNote";
 import { MoodType } from "../types/moodTypes";
+import AITooltip from "../components/AITooltip";
+
+
 
 const NotesPage: React.FC = () => {
-  const { notes, loading, fetchNotes, addNote, editNote, removeNote } = useNotes();
+  const { notes, loading, fetchNotes, addNote, editNote, removeNote } =
+    useNotes();
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [currentNote, setCurrentNote] = useState<Note | null>(null);
@@ -56,6 +60,10 @@ const NotesPage: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-br from-purple-900 to-indigo-900 flex flex-col items-center justify-start p-4 overflow-hidden">
       <StarryBackground />
       <AIGradient />
+
+      <div className="relative z-[9999]">
+        <AITooltip />
+      </div>
 
       <div className="w-full max-w-4xl">
         <PageHeader onCreateNote={() => setIsCreateModalOpen(true)} />

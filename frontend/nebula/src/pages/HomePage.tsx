@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import Tooltip from "../components/Tooltip";
 import AIGradient from "../components/AIGradient";
 import Notification from "../components/Notification";
+import AITooltip from "../components/AITooltip";
 
 const HomePage: React.FC = () => {
   const [isFirstModalOpen, setIsFirstModalOpen] = useState(false);

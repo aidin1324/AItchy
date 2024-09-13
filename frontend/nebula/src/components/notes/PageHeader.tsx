@@ -45,14 +45,16 @@ const PageHeader: React.FC<PageHeaderProps> = ({ onCreateNote }) => {
         </div>
 
         <div className="relative group">
-          <motion.button
-            variants={buttonVariants}
-            whileHover="hover"
-            whileTap="tap"
-            className="bg-gradient-to-r from-yellow-500 to-red-500 text-white py-2 px-4 rounded-full"
-          >
-            <BarChart2 className="w-5 h-5" />
-          </motion.button>
+          <Link to="/stats">
+            <motion.button
+              variants={buttonVariants}
+              whileHover="hover"
+              whileTap="tap"
+              className="bg-gradient-to-r from-yellow-500 to-red-500 text-white py-2 px-4 rounded-full"
+            >
+              <BarChart2 className="w-5 h-5" />
+            </motion.button>
+          </Link>
           <span className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded-lg px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             Dashboard
           </span>
