@@ -62,6 +62,7 @@ const CompactContextFactorsModal: React.FC<{
 
   const handleSave = () => {
     // Transform the data to exclude the 'name' field
+    console.log(selectedFactors);
     const transformedFactors = selectedFactors.map(({ name, ...rest }) => rest);
     onSave(transformedFactors);
     onClose();

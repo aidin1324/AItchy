@@ -7,8 +7,8 @@ import os
 
 from alembic import context
 
-from app.db.database import Base
-from app.config import connection_string
+from db.database import Base
+from config import connection_string
 
 
 # this is the Alembic Config object, which provides
@@ -23,7 +23,7 @@ if config.config_file_name is not None:
 config.set_main_option('sqlalchemy.url', connection_string)
 
 # add your model's MetaData object here
-from app.models import ContextFactor, Effect, Emotion, MoodContent, MoodContext, MoodEntry, MoodEmotion, Note, User
+from models import ContextFactor, Effect, Emotion, MoodContent, MoodContext, MoodEntry, MoodEmotion, Note, User
 target_metadata = Base.metadata
 
 def run_migrations_offline() -> None:

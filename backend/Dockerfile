@@ -1,30 +1,34 @@
-# официальный образ Python версии 3.12.
-FROM python:3.12
+# Используем официальный образ Python
+FROM python:3.12-slim
 
-# Устанавливает рабочую директорию внутри контейнера.
-# Все последующие команды будут выполняться в этой директории.
-WORKDIR /diary-backend
+# Устанавливаем рабочую директорию в контейнере
+WORKDIR /app
 
-# Копирует файлы `poetry.lock` и `pyproject.toml` из локальной файловой системы
-# в рабочую директорию контейнера.
-COPY poetry.lock pyproject.toml /diary-backend/
+# Устанавливаем зависимости для сборки и runtime
+RUN apt-get update && apt-get install -y \
+    gcc \
+    libpq-dev \
+    postgresql-client \
+    && rm -rf /var/lib/apt/lists/*
 
+# Устанавливаем poetry
+RUN pip install poetry
 
-# Устанавливает Poetry (инструмент для управления зависимостями и упаковки Python)
-# и затем устанавливает зависимости проекта, указанные в `pyproject.toml`,
-# Устанавливает Poetry и устанавливает зависимости проекта.
-RUN pip install poetry && \
-    poetry install --no-root
+# Копируем файлы poetry в контейнер
+COPY pyproject.toml poetry.lock* /app/
 
-# Копирует все файлы и директории из локальной файловой системы
-# в рабочую директорию контейнера.
-COPY . /diary-backend
+RUN poetry config virtualenvs.create false
 
-# Открывает порт 8000 внутри контейнера для внешних соединений.
+RUN poetry install --no-interaction --no-ansi
+
+# Копируем остальные файлы проекта
+COPY . .
+
+# Делаем скрипт запуска исполняемым
+RUN chmod +x /app/start.sh
+
+# Указываем, что контейнер будет слушать порт 8000
 EXPOSE 8000
 
-WORKDIR "app"
-# Запускает приложение с использованием команды Poetry, которая
-# в свою очередь запускает Uvicorn (ASGI-сервер) для приложения FastAPI.
-# Приложение будет доступно на всех IP-адресах контейнера на порту 8000.
-CMD ["poetry", "run", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Запускаем приложение с помощью скрипта start.sh
+CMD ["/app/start.sh"]
