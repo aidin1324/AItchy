@@ -67,7 +67,7 @@ const HomePage: React.FC = () => {
         throw new Error("Токен не найден в localStorage");
       }
 
-      const response = await fetch("http://127.0.0.1:8000/mood-entry/create", {
+      const response = await fetch("http://138.197.30.86:8000/mood-entry/create", {
         method: "POST",
         headers: {
           Accept: "application/json",

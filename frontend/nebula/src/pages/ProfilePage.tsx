@@ -28,7 +28,7 @@ const ProfilePage: React.FC = () => {
           throw new Error('No token found');
         }
 
-        const response = await fetch('http://127.0.0.1:8000/auth/current/user', {
+        const response = await fetch('http://138.197.30.86:8000/auth/current/user', {
           headers: {
             'Authorization': `Bearer ${token}`,
             'accept': 'application/json'

@@ -95,7 +95,7 @@ export const getEmotionId = async (
     const englishEmotion = emotionMap[russianEmotion];
 
     const response = await axios.get<Emotion[]>(
-      "http://127.0.0.1:8000/emotion/all"
+      "http://138.197.30.86:8000/emotion/all"
     );
     const emotions = response.data;
 
@@ -117,7 +117,7 @@ export const getContextFactorId = async (
     const englishFactor = contextFactorMap[russianFactor];
 
     const response = await axios.get<ContextFactor[]>(
-      "http://127.0.0.1:8000/context-factor/all"
+      "http://138.197.30.86:8000/context-factor/all"
     );
     const factors = response.data;
 
@@ -137,7 +137,7 @@ export const getEffectId = async (
     const englishEffect = effectMap[russianEffect];
 
     const response = await axios.get<Effect[]>(
-      "http://127.0.0.1:8000/effect/all"
+      "http://138.197.30.86:8000/effect/all"
     );
     const effects = response.data;
 

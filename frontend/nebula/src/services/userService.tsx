@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { LoginResponse } from '../types/authTypes';
 
-const API_URL = 'http://127.0.0.1:8000';
+const API_URL = 'http://138.197.30.86:8000';
 
 interface RegisterUserData {
   name: string;

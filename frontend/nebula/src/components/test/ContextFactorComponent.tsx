@@ -24,7 +24,7 @@ const getContextFactorId = async (russianFactor: RussianContextFactor): Promise<
   try {
     const englishFactor = contextFactorMap[russianFactor];
     
-    const response = await axios.get<ContextFactor[]>('http://127.0.0.1:8000/context-factor/all');
+    const response = await axios.get<ContextFactor[]>('http://138.197.30.86:8000/context-factor/all');
     const factors = response.data;
     
     const foundFactor = factors.find(factor => factor.name === englishFactor);

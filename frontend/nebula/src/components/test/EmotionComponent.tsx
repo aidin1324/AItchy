@@ -25,7 +25,7 @@ const getEmotionId = async (russianEmotion: RussianEmotion): Promise<number | nu
   try {
     const englishEmotion = emotionMap[russianEmotion];
     
-    const response = await axios.get<Emotion[]>('http://127.0.0.1:8000/emotion/all');
+    const response = await axios.get<Emotion[]>('http://138.197.30.86:8000/emotion/all');
     const emotions = response.data;
     
     const foundEmotion = emotions.find(emotion => emotion.name === englishEmotion);

@@ -30,7 +30,7 @@ const AITooltip: React.FC = () => {
     }
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/notes/all?limit=1000000', {
+      const response = await fetch('http://138.197.30.86:8000/notes/all?limit=1000000', {
         headers: {
           'Authorization': `Bearer ${token}`,
           'accept': 'application/json'
@@ -56,7 +56,7 @@ const AITooltip: React.FC = () => {
     }
 
     try {
-      const response = await fetch(`http://127.0.0.1:8000/entry-analyze/analyze-entry?note_id=${noteId}`, {
+      const response = await fetch(`http://138.197.30.86:8000/entry-analyze/analyze-entry?note_id=${noteId}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'accept': 'application/json'

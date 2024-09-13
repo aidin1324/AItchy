@@ -20,7 +20,7 @@ const getEffectId = async (russianEffect: RussianEffect): Promise<number | null>
   try {
     const englishEffect = effectMap[russianEffect];
     
-    const response = await axios.get<Effect[]>('http://127.0.0.1:8000/effect/all');
+    const response = await axios.get<Effect[]>('http://138.197.30.86:8000/effect/all');
     const effects = response.data;
     
     const foundEffect = effects.find(effect => effect.name === englishEffect);

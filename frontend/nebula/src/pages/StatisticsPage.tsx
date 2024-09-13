@@ -160,7 +160,7 @@ const StatisticsPage: React.FC = () => {
       }
 
       const response = await axios.get<DashboardData>(
-        "http://127.0.0.1:8000/analytics/by-date",
+        "http://138.197.30.86:8000/analytics/by-date",
         {
           params: {
             start_date: startDate.toISOString().split("T")[0],

@@ -30,8 +30,8 @@ const mockNotes: Note[] = [
 export const getNotes = async (
   cursor?: string
 ): Promise<{ notes: Note[]; nextCursor: string | null }> => {
-  const notesUrl = "http://127.0.0.1:8000/notes/all";
-  const moodsUrl = "http://127.0.0.1:8000/mood-content/all";
+  const notesUrl = "http://138.197.30.86:8000/notes/all";
+  const moodsUrl = "http://138.197.30.86:8000/mood-content/all";
 
   try {
     // Запрос для получения списка всех доступных эмоций
@@ -90,7 +90,7 @@ export const getNotes = async (
 
 const getMoodId = async (mood: MoodType): Promise<number> => {
   try {
-    const response = await fetch("http://127.0.0.1:8000/mood-content/all", {
+    const response = await fetch("http://138.197.30.86:8000/mood-content/all", {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -152,7 +152,7 @@ export const createNote = async (
 
     console.log(body); // Для отладки
 
-    const response = await fetch("http://127.0.0.1:8000/notes/create", {
+    const response = await fetch("http://138.197.30.86:8000/notes/create", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -204,7 +204,7 @@ export const updateNote = async (
 
     // Выполняем PATCH-запрос
     const response = await fetch(
-      `http://127.0.0.1:8000/notes/update?note_id=${id}`,
+      `http://138.197.30.86:8000/notes/update?note_id=${id}`,
       {
         method: "PATCH",
         headers: {
@@ -234,7 +234,7 @@ export const updateNote = async (
 export const deleteNote = async (id: number): Promise<void> => {
   try {
     const response = await fetch(
-      `http://127.0.0.1:8000/notes/delete?note_id=${id}`,
+      `http://138.197.30.86:8000/notes/delete?note_id=${id}`,
       {
         method: "DELETE",
         headers: {
