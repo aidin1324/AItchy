@@ -1,6 +1,6 @@
-# AItchi
+# AItchy
 
-AItchi is an AI application for analyzing mental states with personalized recommendations through mood tracking and journaling.
+AItchy is an AI - powered self-discovery application that helps to identify hidden and non-obvious patterns of behavior and patterns in your feelings, emotions, behavior.
 
 ## Technologies
 
