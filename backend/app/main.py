@@ -20,7 +20,7 @@ async def lifespan(app: FastAPI):
         #on shutdown
         await async_engine.dispose()
 
-app = FastAPI(lifespan=lifespan)
+app = FastAPI(lifespan=lifespan, debug=True)
 
 origins = [
     "*",

@@ -1,10 +1,16 @@
+import logging
 from typing import Annotated
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, Security
 
 from api.dependencies import get_effect_service
+from fastapi.security import OAuth2PasswordBearer, SecurityScopes
 from schemas.effect import EffectResponse
 from schemas.effect import EffectCreate, EffectUpdate
 from services.effect import EffectService
+
+from services.authentication import AuthenticationService
+
+from api.dependencies import get_auth_service
 
 router = APIRouter()
 
@@ -12,6 +18,17 @@ CommonEffectService = Annotated[
     EffectService,
     Depends(get_effect_service)
 ]
+CommonAuthService = Annotated[AuthenticationService, Depends(get_auth_service)]
+
+oauth2_scheme = OAuth2PasswordBearer(
+    tokenUrl="auth/login/user",
+    scopes={
+        "user": "Read information about effects.",
+        "premium": "Create and update effects.",
+        "admin": "Full access to effects, including deletion."
+    }
+)
+
 
 
 @router.get(
@@ -20,7 +37,12 @@ CommonEffectService = Annotated[
     summary="Get all effects",
     description="Retrieve information about all existing effects",
 )
-async def get_all_effects(effect_service: CommonEffectService):
+async def get_all_effects(
+        effect_service: CommonEffectService,
+        auth_service: CommonAuthService,
+        token: str = Security(oauth2_scheme, scopes=["premium"])):
+
+    await auth_service.get_current_user(SecurityScopes(["premium"]), token)
     effects = await effect_service.get_all_effect()
     return effects
 

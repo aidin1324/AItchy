@@ -10,6 +10,7 @@ class TokenData(BaseModel):
     user_id: int
     is_superuser: bool
     is_premium: bool
+    scopes: list[str]
 
     class Config:
         from_attributes = True

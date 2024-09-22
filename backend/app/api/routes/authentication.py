@@ -1,6 +1,6 @@
 from typing import Annotated
-from fastapi import APIRouter, Depends
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi import APIRouter, Depends, Security
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm, SecurityScopes
 
 from schemas.user import UserCreate, UserResponse
 from schemas.token import Token
@@ -11,7 +11,14 @@ from api.dependencies import get_auth_service
 
 router = APIRouter()
 
-oauth2_scheme_user = OAuth2PasswordBearer(tokenUrl="auth/login/user", scheme_name="user")
+oauth2_scheme = OAuth2PasswordBearer(
+    tokenUrl="auth/login/user",
+    scopes={
+        "user": "Read information about the current user.",
+        "premium": "Premium user access.",
+        "admin": "Superuser access."
+    }
+)
 
 CommonAuthService = Annotated[AuthenticationService, Depends(get_auth_service)]
 
@@ -52,36 +59,25 @@ async def login(
 )
 async def get_current_user(
         auth_service: CommonAuthService,
-        token: str = Depends(oauth2_scheme_user),
+        token: str = Security(oauth2_scheme, scopes=["user"]),
 ):
-    user = await auth_service.get_current_user(token)
+    user = await auth_service.get_current_user(SecurityScopes(["user"]), token)
     return user
 
 
-@router.get(
-    "/current/superuser",
-    response_model=UserResponse,
-    summary="Get superuser access",
-    description="Retrieve access if you are a superuser. Returns 403 if you are not."
-)
-async def get_current_superuser(
-        auth_service: CommonAuthService,
-        token: str = Depends(oauth2_scheme_user),
-        
-):
-    user = await auth_service.get_current_superuser(token)
-    return user
-
-
-@router.get(
-    "/current/premium_user",
-    response_model=UserResponse,
-    summary="Get premium user access",
-    description="Retrieve access if you are a premium user. Returns 403 if you are not."
-)
+@router.get("/current/premium_user", response_model=UserResponse)
 async def get_current_premium_user(
         auth_service: CommonAuthService,
-        token: str = Depends(oauth2_scheme_user),
+        token: str = Security(oauth2_scheme, scopes=["premium"])
 ):
-    user = await auth_service.get_current_premium_user(token)
+    user = await auth_service.get_current_user(SecurityScopes(["premium"]), token)
+    return user
+
+
+@router.get("/current/superuser", response_model=UserResponse)
+async def get_current_superuser(
+        auth_service: CommonAuthService,
+        token: str = Security(oauth2_scheme, scopes=["admin"])
+):
+    user = await auth_service.get_current_user(SecurityScopes(["admin"]), token)
     return user
